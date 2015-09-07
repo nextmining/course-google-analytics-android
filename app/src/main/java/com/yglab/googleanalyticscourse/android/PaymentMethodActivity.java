@@ -15,7 +15,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
-import com.nextmining.mobileanalysiscourse.R;
 import com.ygbae.googleanalyticscourse.android.R;
 
 import java.util.Date;

@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.nextmining.mobileanalysiscourse.R;
 import com.ygbae.googleanalyticscourse.android.R;
 
 /**

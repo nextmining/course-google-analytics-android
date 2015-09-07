@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nextmining.mobileanalysiscourse.R;
 import com.ygbae.googleanalyticscourse.android.R;
 
 import java.util.ArrayList;

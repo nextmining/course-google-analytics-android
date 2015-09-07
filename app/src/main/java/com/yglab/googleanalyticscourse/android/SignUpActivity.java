@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.nextmining.mobileanalysiscourse.R;
 import com.ygbae.googleanalyticscourse.android.R;
 
 
