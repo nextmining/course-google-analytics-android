@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android;
+package com.yglab.googleanalyticscourse.android;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.nextmining.mobileanalysiscourse.R;
+import com.ygbae.googleanalyticscourse.android.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

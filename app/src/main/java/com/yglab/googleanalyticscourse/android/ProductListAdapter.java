@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android;
+package com.yglab.googleanalyticscourse.android;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nextmining.mobileanalysiscourse.R;
-import com.ygbae.googleanalyticscourse.android.dummy.ProductContent;
+import com.ygbae.googleanalyticscourse.android.R;
 
 import java.util.ArrayList;
 import java.util.List;

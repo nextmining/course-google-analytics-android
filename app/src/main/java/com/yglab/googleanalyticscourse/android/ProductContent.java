@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android.dummy;
+package com.yglab.googleanalyticscourse.android;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android;
+package com.yglab.googleanalyticscourse.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
 import com.nextmining.mobileanalysiscourse.R;
-import com.ygbae.googleanalyticscourse.android.dummy.ProductContent;
+import com.ygbae.googleanalyticscourse.android.R;
 
 import java.util.Date;
 

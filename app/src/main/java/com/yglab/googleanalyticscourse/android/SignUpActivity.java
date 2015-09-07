@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android;
+package com.yglab.googleanalyticscourse.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nextmining.mobileanalysiscourse.R;
+import com.ygbae.googleanalyticscourse.android.R;
 
 
 public class SignUpActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android;
+package com.yglab.googleanalyticscourse.android;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

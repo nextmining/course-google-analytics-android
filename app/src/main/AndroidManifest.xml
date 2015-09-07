@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ygbae.googleanalyticscourse.android" >
+    package="com.yglab.googleanalyticscourse.android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.ygbae.googleanalyticscourse.android.MyApplication"
+        android:name="com.yglab.googleanalyticscourse.android.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,7 +36,7 @@
         </receiver>
 
         <!--
-        <receiver android:name="com.ygbae.googleanalyticscourse.android.ReferrerReceiver"
+        <receiver android:name="com.yglab.googleanalyticscourse.android.ReferrerReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
@@ -45,7 +45,7 @@
         -->
 
         <activity
-            android:name="com.ygbae.googleanalyticscourse.android.SignUpActivity"
+            android:name="com.yglab.googleanalyticscourse.android.SignUpActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,19 +54,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ygbae.googleanalyticscourse.android.MainActivity"
+            android:name="com.yglab.googleanalyticscourse.android.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="com.ygbae.googleanalyticscourse.android.ProductDetailActivity"
+            android:name="com.yglab.googleanalyticscourse.android.ProductDetailActivity"
             android:label="@string/title_activity_product_detail" >
         </activity>
         <activity
-            android:name="com.ygbae.googleanalyticscourse.android.PaymentMethodActivity"
+            android:name="com.yglab.googleanalyticscourse.android.PaymentMethodActivity"
             android:label="@string/title_activity_payment" >
         </activity>
         <activity
-            android:name="com.ygbae.googleanalyticscourse.android.PaymentResultActivity"
+            android:name="com.yglab.googleanalyticscourse.android.PaymentResultActivity"
             android:label="@string/title_activity_payment_result" >
         </activity>
 

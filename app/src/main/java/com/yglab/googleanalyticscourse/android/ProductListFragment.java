@@ -1,4 +1,4 @@
-package com.ygbae.googleanalyticscourse.android;
+package com.yglab.googleanalyticscourse.android;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
-import com.ygbae.googleanalyticscourse.android.dummy.ProductContent;
 
 /**
  * A fragment representing a list of Items.
