@@ -2,30 +2,27 @@ package com.yglab.googleanalyticscourse.android;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.ygbae.googleanalyticscourse.android.R;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         ProductListFragment.OnFragmentInteractionListener {
-
-    /**
-     * Google Analytics tracker.
-     */
-    private Tracker mTracker;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -42,10 +39,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Obtain the Google Analytics shared Tracker instance.
-        MyApplication application = (MyApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -54,6 +47,33 @@ public class MainActivity extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // Tracking
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+
+        // In this example, campaign information is set using
+        // a url string with Google Analytics campaign parameters.
+        // Note: This is for illustrative purposes. In most cases campaign
+        //       information would come from an incoming Intent.
+        /*
+        String campaignData = "http://examplepetstore.com/index.html?" +
+                "utm_source=email&utm_medium=email_marketing&utm_campaign=summersale" +
+                "&utm_content=email_variation_1";
+        */
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri campaignData = intent.getData();
+
+        Log.d("MainActivity", "*** Campaign data == " + campaignData);
+
+        // Campaign data sent with this hit.
+        if (campaignData != null && !campaignData.toString().equals("")) {
+            tracker.send(new HitBuilders.ScreenViewBuilder()
+                            .setCampaignParamsFromUrl(campaignData.toString())
+                            .build()
+            );
+        }
     }
 
     @Override
@@ -61,8 +81,9 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         /*
-        mTracker.setScreenName("Main");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+        tracker.setScreenName("Main");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
         */
     }
 
@@ -97,7 +118,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         // Build and send an Event.
-        mTracker.send(new HitBuilders.EventBuilder()
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+        tracker.send(new HitBuilders.EventBuilder()
                 .setCategory("네비게이션메뉴")
                 .setAction("메뉴선택")
                 .setLabel(eventLabel)

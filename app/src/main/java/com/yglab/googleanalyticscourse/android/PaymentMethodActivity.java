@@ -15,7 +15,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
-import com.ygbae.googleanalyticscourse.android.R;
 
 import java.util.Date;
 
@@ -23,11 +22,6 @@ import java.util.Date;
 public class PaymentMethodActivity extends AppCompatActivity {
 
     private static final String TAG = "PaymentMethodActivity";
-
-    /**
-     * Google Analytics tracker.
-     */
-    private Tracker mTracker;
 
     private ProductContent.ProductItem mItem;
     private RadioGroup mRadioGroupPayMethod;
@@ -61,8 +55,10 @@ public class PaymentMethodActivity extends AppCompatActivity {
             long diff = endTime.getTime() - startTime.getTime();
             long diffSeconds = diff / 1000;
 
+            Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+
             // Build and send an Event.
-            mTracker.send(new HitBuilders.EventBuilder()
+            tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("상품결제하기")
                     .setAction("결제하기클릭")
                     .setLabel(payMethod)
@@ -78,7 +74,7 @@ public class PaymentMethodActivity extends AppCompatActivity {
                     .setVariant(mItem.schedule)
                     .setPrice(mItem.price)
                     .setQuantity(1);
-            // Measuring a checkout step #2.
+            // Measuring a checkout step #2(라벨: 결제방식선택).
             // Add the step number and additional info about the checkout to the action.
             ProductAction productActionCheckoutStep = new ProductAction(ProductAction.ACTION_CHECKOUT)
                     .setCheckoutStep(2)
@@ -87,8 +83,8 @@ public class PaymentMethodActivity extends AppCompatActivity {
                     .addProduct(product)
                     .setProductAction(productActionCheckoutStep);
 
-            mTracker.setScreenName("PaymentMethod");
-            mTracker.send(builder.build());
+            tracker.setScreenName("PaymentMethod");
+            tracker.send(builder.build());
 
             Intent intent = new Intent(PaymentMethodActivity.this, PaymentResultActivity.class);
             intent.putExtra("product", mItem);
@@ -101,10 +97,6 @@ public class PaymentMethodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_method);
-
-        // Obtain the Google Analytics shared Tracker instance.
-        MyApplication application = (MyApplication) getApplication();
-        mTracker = application.getDefaultTracker();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -125,8 +117,9 @@ public class PaymentMethodActivity extends AppCompatActivity {
 
         Log.d(TAG, "*** onResume");
 
-        mTracker.setScreenName("PaymentMethod");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+        tracker.setScreenName("PaymentMethod");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

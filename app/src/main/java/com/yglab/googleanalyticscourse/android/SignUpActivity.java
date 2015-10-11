@@ -15,17 +15,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.ygbae.googleanalyticscourse.android.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class SignUpActivity extends AppCompatActivity {
 
     private static final String TAG = "SignUpActivity";
-
-    /**
-     * Google Analytics tracker.
-     */
-    private Tracker mTracker;
 
     private EditText mEditTextUsername;
     private EditText mEditTextEmail;
@@ -54,26 +51,26 @@ public class SignUpActivity extends AppCompatActivity {
             sp.edit().putString("username", username).apply();
             sp.edit().putString("email", email).apply();
 
+            Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+
             // Build and send an Event.
-            mTracker.send(new HitBuilders.EventBuilder()
+            tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("회원가입")
                     .setAction("가입완료")
                     .setLabel(username) /** 원래는 GA에 유저 개인정보(이름, 이메일, 주민번호, 모바일 디바이스 ID 등)를 남기면 안됨! */
                     .build());
 
-            // In this example, campaign information is set using
-            // a url string with Google Analytics campaign parameters.
-            // Note: This is for illustrative purposes. In most cases campaign
-            //       information would come from an incoming Intent.
-            String campaignData = "http://examplepetstore.com/index.html?" +
-                    "utm_source=email&utm_medium=email_marketing&utm_campaign=summersale" +
-                    "&utm_content=email_variation_1";
-
-            // Campaign data sent with this hit.
-            mTracker.send(new HitBuilders.ScreenViewBuilder()
-                            .setCampaignParamsFromUrl(campaignData)
+            // Send the custom dimension value with a screen view.
+            // Note that the value only needs to be sent once.
+            // CustomDimension 1: 회원가입일자
+            Date now = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy년M월d일");
+            String joinDate = format.format(now);
+            tracker.send(new HitBuilders.ScreenViewBuilder()
+                            .setCustomDimension(1, joinDate)
                             .build()
             );
+
 
             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
             startActivity(intent);
@@ -91,10 +88,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        // Obtain the Google Analytics shared Tracker instance.
-        MyApplication application = (MyApplication) getApplication();
-        mTracker = application.getDefaultTracker();
 
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(SignUpActivity.this);
@@ -117,8 +110,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         Log.d(TAG, "*** onResume");
 
-        mTracker.setScreenName("SignUp");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+        tracker.setScreenName("SignUp");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

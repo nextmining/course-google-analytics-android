@@ -20,11 +20,6 @@ import com.google.android.gms.analytics.ecommerce.ProductAction;
  */
 public class ProductListFragment extends ListFragment {
 
-    /**
-     * Google Analytics tracker.
-     */
-    private Tracker mTracker;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,10 +52,6 @@ public class ProductListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Obtain the Google Analytics shared Tracker instance.
-        MyApplication application = (MyApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -69,6 +60,7 @@ public class ProductListFragment extends ListFragment {
         setListAdapter(new ProductListAdapter(getActivity(), ProductContent.ITEMS));
 
         // Measuring impressions for ecommerce tracking.
+        Tracker tracker = ((MyApplication) getActivity().getApplication()).getDefaultTracker();
         int position = 1;
         for (ProductContent.ProductItem item : ProductContent.ITEMS) {
             Product product = new Product()
@@ -82,8 +74,8 @@ public class ProductListFragment extends ListFragment {
             HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder()
                     .addImpression(product, "Product List");
 
-            mTracker.setScreenName("ProductList");
-            mTracker.send(builder.build());
+            tracker.setScreenName("ProductList");
+            tracker.send(builder.build());
 
             position++;
         }
@@ -113,8 +105,9 @@ public class ProductListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
 
-        mTracker.setScreenName("ProductList");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker tracker = ((MyApplication) getActivity().getApplication()).getDefaultTracker();
+        tracker.setScreenName("ProductList");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -127,8 +120,10 @@ public class ProductListFragment extends ListFragment {
             // fragment is attached to one) that an item has been selected.
             mListener.onFragmentInteraction(item);
 
+            Tracker tracker = ((MyApplication) getActivity().getApplication()).getDefaultTracker();
+
             // Build and send an Event.
-            mTracker.send(new HitBuilders.EventBuilder()
+            tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("상품리스트")
                     .setAction("상품클릭")
                     .setLabel(item.title)
@@ -157,9 +152,9 @@ public class ProductListFragment extends ListFragment {
                     .addProduct(product)
                     .setProductAction(productActionView);
 
-            mTracker.setScreenName("ProductList");
-            mTracker.send(builderClick.build());
-            mTracker.send(builderView.build());
+            tracker.setScreenName("ProductList");
+            tracker.send(builderClick.build());
+            tracker.send(builderView.build());
         }
     }
 

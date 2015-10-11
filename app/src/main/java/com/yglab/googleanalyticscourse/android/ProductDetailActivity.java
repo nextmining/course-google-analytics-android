@@ -15,18 +15,12 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
-import com.ygbae.googleanalyticscourse.android.R;
 
 import java.util.Date;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "ProductDetailActivity";
-
-    /**
-     * Google Analytics tracker.
-     */
-    private Tracker mTracker;
 
     private ProductContent.ProductItem mItem;
 
@@ -38,15 +32,17 @@ public class ProductDetailActivity extends AppCompatActivity {
         public void onClick(View v) {
             Log.d(TAG, "Payment button clicked!");
 
+            Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+
             // Build and send an Event.
-            mTracker.send(new HitBuilders.EventBuilder()
+            tracker.send(new HitBuilders.EventBuilder()
                     .setCategory("상품상세보기")
                     .setAction("주문하기클릭")
                     .setLabel(mItem.title)
                     .build());
 
             // Measuring actions for ecommerce tracking.
-            Product product =  new Product()
+            Product product = new Product()
                     .setId(mItem.id)
                     .setName(mItem.title)
                     .setCategory("데이터분석과정")
@@ -54,23 +50,25 @@ public class ProductDetailActivity extends AppCompatActivity {
                     .setVariant(mItem.schedule)
                     .setPrice(mItem.price)
                     .setQuantity(1);
-            // Measuring a checkout step #1.
+
+            // Measuring a checkout step #1(라벨: 주문하기).
             // Add the step number and additional info about the checkout to the action.
             ProductAction productActionCheckoutStep = new ProductAction(ProductAction.ACTION_CHECKOUT)
                     .setCheckoutStep(1);
             HitBuilders.ScreenViewBuilder builderCheckoutStep = new HitBuilders.ScreenViewBuilder()
                     .addProduct(product)
                     .setProductAction(productActionCheckoutStep);
-            // Action add to cart
+
+            // Action add to cart(장바구니 담기)
             ProductAction productActionAdd = new ProductAction(ProductAction.ACTION_ADD)
                     .setProductActionList("Product List");
             HitBuilders.ScreenViewBuilder builderAdd = new HitBuilders.ScreenViewBuilder()
                     .addProduct(product)
                     .setProductAction(productActionAdd);
 
-            mTracker.setScreenName("ProductDetail");
-            mTracker.send(builderCheckoutStep.build());
-            mTracker.send(builderAdd.build());
+            tracker.setScreenName("ProductDetail");
+            tracker.send(builderCheckoutStep.build());
+            tracker.send(builderAdd.build());
 
 
             Intent intent = new Intent(ProductDetailActivity.this, PaymentMethodActivity.class);
@@ -87,10 +85,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-
-        // Obtain the Google Analytics shared Tracker instance.
-        MyApplication application = (MyApplication) getApplication();
-        mTracker = application.getDefaultTracker();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -118,8 +112,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Log.d(TAG, "*** onResume");
 
-        mTracker.setScreenName("ProductDetail");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+        tracker.setScreenName("ProductDetail");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

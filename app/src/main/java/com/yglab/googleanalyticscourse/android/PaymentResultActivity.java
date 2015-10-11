@@ -15,7 +15,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.ecommerce.Product;
 import com.google.android.gms.analytics.ecommerce.ProductAction;
-import com.ygbae.googleanalyticscourse.android.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,17 +24,14 @@ public class PaymentResultActivity extends AppCompatActivity {
 
     private static final String TAG = "PaymentResultActivity";
 
-    /**
-     * Google Analytics tracker.
-     */
-    private Tracker mTracker;
-
     private ProductContent.ProductItem mItem;
 
     /** OkButtonClickListener */
     View.OnClickListener mOkButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
 
             // Measuring transactions for ecommerce tracking.
             Product product =  new Product()
@@ -59,7 +55,7 @@ public class PaymentResultActivity extends AppCompatActivity {
                     .addProduct(product)
                     .setProductAction(productActionTransaction);
 
-            // Measuring a checkout step #3.
+            // Measuring a checkout step #3(라벨: 결제완료).
             // Add the step number and additional info about the checkout to the action.
             ProductAction productActionCheckout = new ProductAction(ProductAction.ACTION_CHECKOUT)
                     .setCheckoutStep(3);
@@ -68,10 +64,10 @@ public class PaymentResultActivity extends AppCompatActivity {
                     .addProduct(product)
                     .setProductAction(productActionCheckout);
 
-            mTracker.setScreenName("PaymentResult");
-            //mTracker.set("&cu", "KRW");  // Set tracker currency to Korean Won.
-            mTracker.send(builderTransaction.build());
-            mTracker.send(builderCheckoutStep.build());
+            tracker.setScreenName("PaymentResult");
+            //tracker.set("&cu", "KRW");  // Set tracker currency to Korean Won.
+            tracker.send(builderTransaction.build());
+            tracker.send(builderCheckoutStep.build());
 
 
             Intent intent = getIntent();
@@ -91,10 +87,6 @@ public class PaymentResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_result);
 
-        // Obtain the Google Analytics shared Tracker instance.
-        MyApplication application = (MyApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-
         mItem = (ProductContent.ProductItem) getIntent().getSerializableExtra("product");
 
         ActionBar actionBar = getSupportActionBar();
@@ -111,8 +103,9 @@ public class PaymentResultActivity extends AppCompatActivity {
 
         Log.d(TAG, "*** onResume");
 
-        mTracker.setScreenName("PaymentResult");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        Tracker tracker = ((MyApplication) getApplication()).getDefaultTracker();
+        tracker.setScreenName("PaymentResult");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
