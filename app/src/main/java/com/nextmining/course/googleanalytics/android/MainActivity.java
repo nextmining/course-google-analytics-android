@@ -1,4 +1,4 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.yglab.googleanalyticscourse.android.R;
 
 
 public class MainActivity extends AppCompatActivity

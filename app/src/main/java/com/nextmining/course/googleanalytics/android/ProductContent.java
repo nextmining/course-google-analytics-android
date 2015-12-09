@@ -1,4 +1,4 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

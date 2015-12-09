@@ -1,4 +1,4 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.yglab.googleanalyticscourse.android.R;
 
 import java.util.ArrayList;
 import java.util.List;

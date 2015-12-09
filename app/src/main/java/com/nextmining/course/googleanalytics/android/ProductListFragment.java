@@ -1,4 +1,4 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import android.app.Activity;
 import android.os.Bundle;

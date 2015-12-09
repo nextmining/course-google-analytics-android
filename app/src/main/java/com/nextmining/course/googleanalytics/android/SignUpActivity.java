@@ -1,4 +1,4 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.yglab.googleanalyticscourse.android.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

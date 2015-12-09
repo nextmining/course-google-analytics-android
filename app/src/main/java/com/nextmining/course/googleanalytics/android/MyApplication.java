@@ -1,9 +1,10 @@
-package com.yglab.googleanalyticscourse.android;
+package com.nextmining.course.googleanalytics.android;
 
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.yglab.googleanalyticscourse.android.R;
 
 /**
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
